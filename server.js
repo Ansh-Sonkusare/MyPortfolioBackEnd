@@ -71,7 +71,7 @@ const msg = {
       ],
       "Subject": "Someone visited your website",
       "TextPart": `${req.body[0].name}`,
-      "HTMLPart": "Visited your website , contact him asap ",
+      "HTMLPart": `${req.body[0].name}Visited your website , contact him asap  , MSG : ${req.body.msg}`,
       "CustomID": "SelfEmail"
     }
   ]
