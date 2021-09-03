@@ -18,8 +18,13 @@ app.use(
     origin:"https://anshcodes.web.app"
 })
 )
+app.use(
+    cors({
+    origin:"http://localhost:3000"
+})
+)
 // app.use(express.static('public'))
- app.post('/form', (req, res) => {
+ app.get('/form', (req, res) => {
   res.send('Hello World!')
   const txt = req.body;
   console.log(typeof(req.body[0].name));
@@ -75,7 +80,6 @@ const msg = {
     }
   ]
 })
-
 request2
   .then((result) => {
     console.log(result.body)
@@ -92,6 +96,11 @@ request
   console.log(err.statusCode)
 })
 })
+
+app.get('/' , (req, res) => {
+    res.send('hello')
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
  
