@@ -20,7 +20,7 @@ app.use(
 )
 
 // app.use(express.static('public'))
- app.get('/form', (req, res) => {
+ app.post('/form', (req, res) => {
   res.send('Hello World!')
   const txt = req.body;
   console.log(typeof(req.body[0].name));
