@@ -15,7 +15,7 @@ const cors = require('cors');
 const { json } = require('body-parser');
 app.use(
     cors({
-    origin:"https://localhost:5500"
+    origin:"http://localhost:5500"
 })
 )
 
