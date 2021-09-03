@@ -15,7 +15,7 @@ const cors = require('cors');
 const { json } = require('body-parser');
 app.use(
     cors({
-    origin:"https://anshcodes.web.app/"
+    origin:"https://anshcodes.web.app"
 })
 )
 // app.use(express.static('public'))
