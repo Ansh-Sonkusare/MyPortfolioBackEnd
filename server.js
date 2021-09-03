@@ -18,11 +18,7 @@ app.use(
     origin:"https://anshcodes.web.app"
 })
 )
-app.use(
-    cors({
-    origin:"http://localhost:5500"
-})
-)
+
 // app.use(express.static('public'))
  app.get('/form', (req, res) => {
   res.send('Hello World!')
