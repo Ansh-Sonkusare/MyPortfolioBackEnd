@@ -27,19 +27,14 @@ const cors = require('cors');
 const {
   json
 } = require('body-parser');
-app.use(
-  cors({
-    origin: "*",
-    Access-Control-Allow-Origin: '*'
-  })
-)
+
 console.log(1);
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
+app.use(
+    cors({
+    origin:"https://anshcodes.web.app"
+})
+)
 
 
 
