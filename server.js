@@ -4,16 +4,7 @@ const nodeMailer = require('nodemailer')
 //   .connect('9152e1a3e9e2bdbca48f09eb2351dbac', '0ae2d591fe52c4ec8141df2b9293a542')
 require('dotenv').config();
 
-let transporter = nodeMailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-      // should be replaced with real sender's account
-      user: process.env.selfmail,
-      pass: process.env.password
-  }
-});
+
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -40,7 +31,16 @@ app.get('/', (req, res) => {
       res.send('Hello World!')
   
   })
-
+let transporter = nodeMailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+      // should be replaced with real sender's account
+      user: process.env.selfmail,
+      pass: process.env.password
+  }
+});
 app.post('/form', (req, res) => {
   res.send('Hello World!')
   let mailOptions1 = {
