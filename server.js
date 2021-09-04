@@ -29,7 +29,7 @@ const {
 } = require('body-parser');
 app.use(
   cors({
-    origin: "https://anshcodes.web.app"
+    origin: "/"
   })
 )
 console.log(1);
