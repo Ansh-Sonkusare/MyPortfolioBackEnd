@@ -1,101 +1,76 @@
 const express = require('express')
-
-const mailjet = require ('node-mailjet')
-.connect('9152e1a3e9e2bdbca48f09eb2351dbac', '0ae2d591fe52c4ec8141df2b9293a542')
+const nodeMailer = require('nodemailer')
+// const mailjet = require('node-mailjet')
+//   .connect('9152e1a3e9e2bdbca48f09eb2351dbac', '0ae2d591fe52c4ec8141df2b9293a542')
 require('dotenv').config();
 
+let transporter = nodeMailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+      // should be replaced with real sender's account
+      user: process.env.selfmail,
+      pass: process.env.password
+  }
+});
 
 const app = express()
-const port = process.env.PORT || 3000 
-var bodyParser=require("body-parser"); 
-app.use(bodyParser.urlencoded({extended:true}));
+const port = process.env.PORT || 3000
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(express.json())
 const cors = require('cors');
-const { json } = require('body-parser');
+const {
+  json
+} = require('body-parser');
 app.use(
-    cors({
-    origin:"https://anshcodes.web.app" 
-})
+  cors({
+    origin: "https://anshcodes.web.app"
+  })
 )
 console.log(1);
-// app.use(express.static('public'))
- app.post('/form', (req, res) => {
-  res.send('Hello World!')
-  const txt = req.body;
-  console.log(typeof(req.body[0].name));
-const msg = {
-    to: `${req.body[0].email}`, // Change to your recipient
-    from: 'sonkusare.satish12@gmail.com', // Change to your verified sender
-    subject: 'Thanks For Visiting our Site',
-    text: `Thanks ${req.body[0].name} for visiting our site , Ansh Sonkusare(owner ) will contact you on this email itself `,
-    html: '<strong>Thanks</strong>',
-  }
-  
-  const request = mailjet
-  .post("send", {'version': 'v3.1'})
-  .request({
-    "Messages":[
-      {
-        "From": {
-          "Email": "sonkusare.satish12@gmail.com",
-          "Name": "Ansh"
-        },
-        "To": [
-          {
-            "Email": `${req.body[0].email}`,
-            "Name": `${req.body[0].name}`
-          }
-        ],
-        "Subject": "Thanks for visiting our website",
-        "TextPart": "Ansh Sonkusare",
-        "HTMLPart":  `Thanks ${req.body[0].name} for visiting our site , Ansh Sonkusare(owner ) will contact you on this email itself `,
-        "CustomID": "ProdMail"
-      }
-    ]
-  })
-  const request2 = mailjet
-.post("send", {'version': 'v3.1'})
-.request({
-  "Messages":[
-    {
-      "From": {
-        "Email": "sonkusare.satish12@gmail.com",
-        "Name": "Ansh"
-      },
-      "To": [
-        {
-          "Email": "sonkusare.satish1@gmail.com",
-          "Name": "Ansh"
-        }
-      ],
-      "Subject": "Someone visited your website",
-      "TextPart": `${req.body[0].name}`,
-      "HTMLPart": "Visited your website , contact him asap ",
-      "CustomID": "SelfEmail"
-    }
-  ]
-})
 
-request2
-  .then((result) => {
-    console.log(result.body)
-  })
-  .catch((err) => {
-    console.log(err.statusCode)
-  })
+
+
+
+
+
+app.post('/form', (req, res) => {
+  res.send('Hello World!')
+  let mailOptions1 = {
+ 
+    to: req.body[0].email,
+    subject: 'Thanks For Visiting our Site',
+    text: `Thanks ${req.body[0].name} for visiting our site , Ansh Sonkusare(owner ) will contact you on this email itself `
+};
+
+let mailOptions2 = {
   
-request
-.then((result) => {
-  console.log(result.body)
-})
-.catch((err) => {
-  console.log(err.statusCode)
-})
+  to: 'sonkusare.satish12@gmail.com',
+  subject: "Someone visited your website",
+  text: `${req.body[0].name} Visited your website , contact him asap   , msg : ${req.body[0].msg}`
+};
+  
+transporter.sendMail(mailOptions1, (error, info) => {
+  if (error) {
+      return console.log(error);
+  }
+  console.log('Message %s sent: %s', info.messageId, info.response);
+});
+
+transporter.sendMail(mailOptions2, (error, info) => {
+  if (error) {
+      return console.log(error);
+  }
+  console.log('Message %s sent: %s', info.messageId, info.response);
+});
+
 })
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
- 
+
 })
-
-
