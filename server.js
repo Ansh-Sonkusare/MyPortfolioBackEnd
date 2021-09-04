@@ -30,7 +30,7 @@ const {
 app.use(
   cors({
     origin: "*",
-    Access-Control-Allow-Origin: *
+    Access-Control-Allow-Origin: '*'
   })
 )
 console.log(1);
